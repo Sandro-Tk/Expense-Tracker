@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { formatCurrency } from "../helpers";
 
 const Container = styled.div`
     display: flex;
@@ -39,20 +40,24 @@ const Expense = styled.span`
 `;
 
 function IncomeExpenses({ transactions }) {
-    const income = transactions
-        .filter((tr) => tr.amount > 0)
-        .reduce((acc, cur) => acc + cur.amount, 0);
+    const income = formatCurrency(
+        transactions
+            .filter((tr) => tr.amount > 0)
+            .reduce((acc, cur) => acc + cur.amount, 0)
+    );
 
-    const expense = transactions
-        .filter((tr) => tr.amount < 0)
-        .reduce((acc, cur) => acc + cur.amount, 0);
+    const expense = formatCurrency(
+        transactions
+            .filter((tr) => tr.amount < 0)
+            .reduce((acc, cur) => acc + cur.amount, 0)
+    );
 
     return (
         <>
             <Container>
                 <ValueContainer>
                     <Label>Income</Label>
-                    <Income>{income}</Income>
+                    <Income>{"+" + income}</Income>
                 </ValueContainer>
                 <ValueContainer>
                     <Label>Expense</Label>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { formatCurrency } from "../helpers";
 
 const StyledContainer = styled.div`
     display: flex;
@@ -22,7 +23,9 @@ function Balance({ transactions }) {
             <StyledContainer>
                 <Header>Your Balance</Header>
                 <StyledBalance>
-                    {transactions.reduce((acc, cur) => cur.amount + acc, 0)}
+                    {formatCurrency(
+                        transactions.reduce((acc, cur) => cur.amount + acc, 0)
+                    )}
                 </StyledBalance>
             </StyledContainer>
         </>

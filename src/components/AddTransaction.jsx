@@ -9,13 +9,37 @@ const StyledForm = styled.form`
     align-items: center;
 `;
 
+const FormItemContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    gap: 10px;
+`;
+
 const FormItem = styled.div`
-    width: 300px;
-    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-top: 10px;
+`;
+
+const StyledInput = styled.input`
+    height: 30px;
+    width: 250px;
+    padding-inline: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    border: none;
+    &:focus {
+        border: solid 1px blue;
+        outline: none;
+    }
 `;
 
 const FormButton = styled.button`
@@ -29,7 +53,7 @@ const FormButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.8;
+    transition: all 0.2s;
     cursor: pointer;
     &:hover {
         background-color: #039903;
@@ -38,7 +62,7 @@ const FormButton = styled.button`
 
 function AddTransaction({ addTransaction }) {
     const [description, setDescription] = useState("");
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState("");
 
     function submit(e) {
         e.preventDefault();
@@ -51,29 +75,31 @@ function AddTransaction({ addTransaction }) {
         });
 
         setDescription("");
-        setAmount(0);
+        setAmount("");
     }
 
     return (
         <StyledForm onSubmit={submit}>
-            <FormItem>
-                <label htmlFor="description">Description</label>
-                <input
-                    type="text"
-                    id="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-            </FormItem>
-            <FormItem>
-                <label htmlFor="amount">Amount</label>
-                <input
-                    type="number"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                />
-            </FormItem>
+            <FormItemContainer>
+                <FormItem>
+                    <StyledInput
+                        type="text"
+                        placeholder="Description"
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </FormItem>
+                <FormItem>
+                    <StyledInput
+                        type="number"
+                        placeholder="Amount"
+                        id="amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                    />
+                </FormItem>
+            </FormItemContainer>
             <FormButton type="submit" onSubmit={submit}>
                 Add transaction
             </FormButton>
