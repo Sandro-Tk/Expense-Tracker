@@ -1,52 +1,73 @@
 import { HiXMark } from "react-icons/hi2";
-import styled from "styled-components";
 import { formatCurrency } from "../helpers";
+import styled from "styled-components";
+import { useContext } from "react";
+import { TransactionContext } from "../context/TransactionContext";
 
 const StyledTransaction = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 500px;
-    height: 40px;
+    width: 100%;
+    max-width: 500px;
+    padding: ${({ theme }) => theme.spacing.small};
+    background-color: ${({ theme }) => theme.colors.color2};
+    border: 1px solid ${({ theme }) => theme.colors.color4};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+
+    &:hover {
+        transform: scale(1.02);
+    }
 `;
 
 const Description = styled.span`
     flex: 1;
     text-align: left;
-    font-size: 20px;
-    margin-left: 10px;
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+    margin-left: ${({ theme }) => theme.spacing.small};
+    color: ${({ theme }) => theme.colors.color4};
 `;
+
 const Amount = styled.span`
     flex: 0;
-    margin-left: 20px;
+    margin-left: ${({ theme }) => theme.spacing.medium};
     text-align: right;
-    color: ${(props) => (props.$isPositive ? "green" : "red")};
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+    color: ${(props) =>
+        props.$isPositive
+            ? props.theme.colors.positive
+            : props.theme.colors.negative};
 `;
 
 const Button = styled.button`
-    background: red;
+    background: ${({ theme }) => theme.colors.negative};
     border: none;
     border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s;
-    margin-left: 5px;
+    transition: background-color 0.2s;
+    margin-left: ${({ theme }) => theme.spacing.small};
     cursor: pointer;
+
     & svg {
         color: white;
         stroke-width: 2px;
     }
 
     &:hover {
-        background-color: darkred;
+        background-color: ${({ theme }) => theme.colors.negative_hover};
     }
 `;
 
-function Transaction({ deleteTransaction, transaction }) {
+function Transaction({ transaction }) {
+    const { deleteTransaction } = useContext(TransactionContext);
+
     if (!transaction) return null;
 
     const isPositive = transaction.amount >= 0;

@@ -1,66 +1,80 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { TransactionContext } from "../context/TransactionContext";
 
 const StyledForm = styled.form`
-    padding-top: 40px;
+    padding-top: ${({ theme }) => theme.spacing.medium};
     display: flex;
     flex-direction: column;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
+    gap: ${({ theme }) => theme.spacing.medium};
 `;
 
 const FormItemContainer = styled.div`
     display: flex;
     flex-direction: row;
-    position: relative;
-    gap: 10px;
-`;
+    gap: ${({ theme }) => theme.spacing.small};
+    flex-wrap: wrap;
 
-const FormItem = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
+    @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const StyledInput = styled.input`
-    height: 30px;
+    height: 40px;
     width: 250px;
-    padding-inline: 15px;
-    -webkit-appearance: none;
-    appearance: none;
+    padding-inline: ${({ theme }) => theme.spacing.small};
+    border: 1px solid ${({ theme }) => theme.colors.color3};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+    color: ${({ theme }) => theme.colors.color4};
+    background-color: ${({ theme }) => theme.colors.color2};
+    transition: border-color 0.2s;
+
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
-    border: none;
+
     &:focus {
-        border: solid 1px blue;
+        border-color: ${({ theme }) => theme.colors.color4};
         outline: none;
+    }
+
+    &::placeholder {
+        color: ${({ theme }) => theme.colors.color4};
     }
 `;
 
 const FormButton = styled.button`
     width: 300px;
-    padding: 10px;
-    margin-top: 10px;
-    border: solid 1px;
-    border-radius: 10px;
-    background-color: #34d134;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s;
+    padding: ${({ theme }) => theme.spacing.small};
+    border: none;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    background-color: ${({ theme }) => theme.colors.color3};
+    color: ${({ theme }) => theme.colors.color1};
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+
     &:hover {
-        background-color: #039903;
+        background-color: ${({ theme }) => theme.colors.color4};
+        transform: scale(1.02);
+    }
+
+    &:active {
+        transform: scale(0.98);
     }
 `;
 
-function AddTransaction({ addTransaction }) {
+function AddTransaction() {
+    const { addTransaction } = useContext(TransactionContext);
+
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
 
@@ -81,24 +95,22 @@ function AddTransaction({ addTransaction }) {
     return (
         <StyledForm onSubmit={submit}>
             <FormItemContainer>
-                <FormItem>
-                    <StyledInput
-                        type="text"
-                        placeholder="Description"
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </FormItem>
-                <FormItem>
-                    <StyledInput
-                        type="number"
-                        placeholder="Amount"
-                        id="amount"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                    />
-                </FormItem>
+                <StyledInput
+                    type="text"
+                    placeholder="Description"
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    aria-label="Transaction Description"
+                />
+                <StyledInput
+                    type="number"
+                    placeholder="Amount"
+                    id="amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    aria-label="Transaction Amount"
+                />
             </FormItemContainer>
             <FormButton type="submit" onSubmit={submit}>
                 Add transaction

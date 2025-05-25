@@ -4,8 +4,9 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    color: #f30f08;
+    font-size: ${({ theme }) => theme.fontSizes.large};
+    color: ${({ theme }) => theme.colors.color4};
+    margin-bottom: ${({ theme }) => theme.spacing.small};
 `;
 
 function Header() {

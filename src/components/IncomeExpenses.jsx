@@ -1,45 +1,54 @@
 import styled from "styled-components";
 import { formatCurrency } from "../helpers";
+import { theme } from "../GlobalStyles";
+import { useContext } from "react";
+import { TransactionContext } from "../context/TransactionContext";
 
 const Container = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 1px;
     align-items: center;
+    gap: ${({ theme }) => theme.spacing.small};
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
 `;
 
 const ValueContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border: 1px solid gray;
+    gap: ${({ theme }) => theme.spacing.small};
+    border: 1px solid ${({ theme }) => theme.colors.color4};
+    border-radius: ${({ theme }) => theme.borderRadius};
     width: 200px;
+    padding: ${({ theme }) => theme.spacing.small};
 `;
 
 const Label = styled.span`
-    margin-left: 20px;
-    margin-top: 10px;
-    color: gray;
+    color: ${({ theme }) => theme.colors.color4};
     font-weight: bold;
-    font-size: 15px;
+    font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
-const Income = styled.span`
-    margin-left: 20px;
-    color: green;
+const Amount = styled.span`
     font-weight: bold;
-    font-size: 30px;
+    font-size: ${({ theme }) => theme.fontSizes.large};
+    color: ${({ color }) => color};
 `;
 
-const Expense = styled.span`
-    margin-left: 20px;
-    color: red;
-    font-weight: bold;
-    font-size: 30px;
-`;
+function ValueBox({ label, amount, color }) {
+    return (
+        <ValueContainer>
+            <Label>{label}</Label>
+            <Amount color={color}>{amount}</Amount>
+        </ValueContainer>
+    );
+}
 
-function IncomeExpenses({ transactions }) {
+function IncomeExpenses() {
+    const { transactions } = useContext(TransactionContext);
     const income = formatCurrency(
         transactions
             .filter((tr) => tr.amount > 0)
@@ -55,14 +64,16 @@ function IncomeExpenses({ transactions }) {
     return (
         <>
             <Container>
-                <ValueContainer>
-                    <Label>Income</Label>
-                    <Income>{"+" + income}</Income>
-                </ValueContainer>
-                <ValueContainer>
-                    <Label>Expense</Label>
-                    <Expense>{expense}</Expense>
-                </ValueContainer>
+                <ValueBox
+                    label="Income"
+                    amount={`${income}`}
+                    color={theme.colors.positive}
+                />
+                <ValueBox
+                    label="Expense"
+                    amount={`${expense}`}
+                    color={theme.colors.negative}
+                />
             </Container>
         </>
     );
