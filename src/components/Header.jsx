@@ -3,14 +3,14 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: ${({ theme }) => theme.fontSizes.large};
-    color: ${({ theme }) => theme.colors.color4};
-    margin-bottom: ${({ theme }) => theme.spacing.small};
+    justify-content: flex-end;
+    gap: 2.4rem;
+    padding: 1.2rem 4.8rem;
+    border-bottom: 1px solid var(--color-2);
 `;
 
 function Header() {
-    return <StyledHeader>Expense Tracker</StyledHeader>;
+    return <StyledHeader>HEADER</StyledHeader>;
 }
 
 export default Header;
