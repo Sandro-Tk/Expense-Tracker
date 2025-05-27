@@ -112,9 +112,7 @@ function AddTransaction() {
                     aria-label="Transaction Amount"
                 />
             </FormItemContainer>
-            <FormButton type="submit" onSubmit={submit}>
-                Add transaction
-            </FormButton>
+            <FormButton type="submit">Add transaction</FormButton>
         </StyledForm>
     );
 }
