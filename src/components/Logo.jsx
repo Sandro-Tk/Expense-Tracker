@@ -10,7 +10,7 @@ const Img = styled.img`
 `;
 
 function Logo() {
-    const src = "../../public/Expenza-logo.png";
+    const src = "/Expenza-logo.png";
 
     return (
         <StyledLogo>

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { TransactionContext } from "../context/TransactionContext";
+import { categories } from "../constants/categories";
 
 const StyledForm = styled.form`
     padding-top: ${({ theme }) => theme.spacing.medium};
@@ -50,6 +51,23 @@ const StyledInput = styled.input`
     }
 `;
 
+const StyledSelect = styled.select`
+    height: 40px;
+    width: 250px;
+    padding-inline: ${({ theme }) => theme.spacing.small};
+    border: 1px solid ${({ theme }) => theme.colors.color3};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    font-size: ${({ theme }) => theme.fontSizes.medium};
+    color: ${({ theme }) => theme.colors.color4};
+    background-color: ${({ theme }) => theme.colors.color2};
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: ${({ theme }) => theme.colors.color4};
+        outline: none;
+    }
+`;
+
 const FormButton = styled.button`
     width: 300px;
     padding: ${({ theme }) => theme.spacing.small};
@@ -77,19 +95,23 @@ function AddTransaction() {
 
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
+    const [category, setCategory] = useState(categories[0]);
 
     function submit(e) {
         e.preventDefault();
-        if (!description || !amount) return;
+        if (!description || !amount || !category) return;
 
         addTransaction({
             id: Date.now(),
             description,
             amount: parseFloat(amount),
+            category,
+            date: new Date().toISOString(),
         });
 
         setDescription("");
         setAmount("");
+        setCategory("General");
     }
 
     return (
@@ -111,6 +133,18 @@ function AddTransaction() {
                     onChange={(e) => setAmount(e.target.value)}
                     aria-label="Transaction Amount"
                 />
+                <StyledSelect
+                    value={category}
+                    id="category"
+                    onChange={(e) => setCategory(e.target.value)}
+                    aria-label="Transaction Category"
+                >
+                    {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                            {cat}
+                        </option>
+                    ))}
+                </StyledSelect>
             </FormItemContainer>
             <FormButton type="submit">Add transaction</FormButton>
         </StyledForm>

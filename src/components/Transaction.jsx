@@ -74,7 +74,14 @@ function Transaction({ transaction }) {
 
     return (
         <StyledTransaction>
-            <Description>{transaction.description}</Description>
+            <Description>
+                {transaction.description} <br />
+                <small>Category: {transaction.category}</small>
+                <br />
+                <small>
+                    Date: {new Date(transaction.date).toLocaleDateString()}
+                </small>
+            </Description>
             <Amount $isPositive={isPositive}>
                 {isPositive ? "+" : ""}
                 {formatCurrency(transaction.amount)}

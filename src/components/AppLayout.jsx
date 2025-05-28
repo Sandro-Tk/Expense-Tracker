@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import AddTransaction from "../components/AddTransaction";
-import TransactionsList from "../components/TransactionsList";
-import Balance from "../components/Balance";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import IncomeExpenses from "../components/IncomeExpenses";
+import { Outlet } from "react-router-dom";
 
 // const StyledContainer = styled.div`
 //     background-color: var(--color-2);
@@ -39,10 +36,7 @@ function AppLayout() {
             <Sidebar />
             <Main>
                 <Container>
-                    <Balance />
-                    <IncomeExpenses />
-                    <TransactionsList />
-                    <AddTransaction />
+                    <Outlet />
                 </Container>
             </Main>
         </StyledAppLayout>
