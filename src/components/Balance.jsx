@@ -11,14 +11,14 @@ const StyledContainer = styled.div`
 `;
 
 const Header = styled.header`
-    font-size: ${({ theme }) => theme.fontSizes.medium};
-    color: ${({ theme }) => theme.colors.color4};
+    font-size: var(--font-size-medium);
+    color: var(--color-4);
 `;
 
 const StyledBalance = styled.span`
-    font-size: ${({ theme }) => theme.fontSizes.large};
-    color: ${({ theme }) => theme.colors.color4};
-    margin-bottom: ${({ theme }) => theme.spacing.small};
+    font-size: var(--font-size-large);
+    color: var(--color-4);
+    margin-bottom: var(--spacing-small);
 `;
 
 function Balance() {

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { formatCurrency } from "../helpers";
-import { theme } from "../GlobalStyles";
 import { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";
 
@@ -9,7 +8,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: ${({ theme }) => theme.spacing.small};
+    gap: var(--spacing-small);
 
     @media (max-width: 600px) {
         flex-direction: column;
@@ -19,22 +18,22 @@ const Container = styled.div`
 const ValueContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.small};
-    border: 1px solid ${({ theme }) => theme.colors.color4};
-    border-radius: ${({ theme }) => theme.borderRadius};
+    gap: var(--spacing-small);
+    border: 1px solid var(--color-4);
+    border-radius: var(--border-radius);
     width: 200px;
-    padding: ${({ theme }) => theme.spacing.small};
+    padding: var(--spacing-small);
 `;
 
 const Label = styled.span`
-    color: ${({ theme }) => theme.colors.color4};
+    color: var(--color-4);
     font-weight: bold;
-    font-size: ${({ theme }) => theme.fontSizes.small};
+    font-size: var(--font-size-small);
 `;
 
 const Amount = styled.span`
     font-weight: bold;
-    font-size: ${({ theme }) => theme.fontSizes.large};
+    font-size: var(--font-size-large);
     color: ${({ color }) => color};
 `;
 
@@ -67,12 +66,12 @@ function IncomeExpenses() {
                 <ValueBox
                     label="Income"
                     amount={`${income}`}
-                    color={theme.colors.positive}
+                    color="var(--color-positive)"
                 />
                 <ValueBox
                     label="Expense"
                     amount={`${expense}`}
-                    color={theme.colors.negative}
+                    color="var(--color-negative)"
                 />
             </Container>
         </>

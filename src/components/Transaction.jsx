@@ -11,10 +11,10 @@ const StyledTransaction = styled.div`
     justify-content: space-between;
     width: 100%;
     max-width: 500px;
-    padding: ${({ theme }) => theme.spacing.small};
-    background-color: ${({ theme }) => theme.colors.color2};
-    border: 1px solid ${({ theme }) => theme.colors.color4};
-    border-radius: ${({ theme }) => theme.borderRadius};
+    padding: var(--spacing-small);
+    background-color: var(--color-2);
+    border: 1px solid var(--color-4);
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 
@@ -26,24 +26,22 @@ const StyledTransaction = styled.div`
 const Description = styled.span`
     flex: 1;
     text-align: left;
-    font-size: ${({ theme }) => theme.fontSizes.medium};
-    margin-left: ${({ theme }) => theme.spacing.small};
-    color: ${({ theme }) => theme.colors.color4};
+    font-size: var(--font-size-medium);
+    margin-left: var(--spacing-small);
+    color: var(--color-4);
 `;
 
 const Amount = styled.span`
     flex: 0;
-    margin-left: ${({ theme }) => theme.spacing.medium};
+    margin-left: var(--spacing-medium);
     text-align: right;
-    font-size: ${({ theme }) => theme.fontSizes.medium};
+    font-size: var(--font-size-medium);
     color: ${(props) =>
-        props.$isPositive
-            ? props.theme.colors.positive
-            : props.theme.colors.negative};
+        props.$isPositive ? "var(--color-positive)" : "var(--color-negative)"};
 `;
 
 const Button = styled.button`
-    background: ${({ theme }) => theme.colors.negative};
+    background: var(--color-negative);
     border: none;
     border-radius: 50%;
     width: 1.5rem;
@@ -52,7 +50,7 @@ const Button = styled.button`
     justify-content: center;
     align-items: center;
     transition: background-color 0.2s;
-    margin-left: ${({ theme }) => theme.spacing.small};
+    margin-left: var(--spacing-small);
     cursor: pointer;
 
     & svg {
@@ -61,7 +59,7 @@ const Button = styled.button`
     }
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.negative_hover};
+        background-color: var(--color-negative-hover);
     }
 `;
 

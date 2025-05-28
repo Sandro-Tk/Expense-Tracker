@@ -10,7 +10,7 @@ import {
 const NavList = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: var(--spacing-small);
     list-style: none;
 `;
 
@@ -19,10 +19,10 @@ const StyledNavLink = styled(NavLink)`
     &:visited {
         display: flex;
         align-items: center;
-        gap: 1.2rem;
+        gap: var(--spacing-medium);
 
         color: var(--color-3);
-        font-size: 1.6rem;
+        font-size: var(--font-size-medium);
         font-weight: 500;
         padding: 1.2rem 2.4rem;
         transition: all 0.3s;
@@ -35,7 +35,7 @@ const StyledNavLink = styled(NavLink)`
     &.active:visited {
         color: var(--color-1);
         background-color: var(--color-3);
-        border-radius: 10px;
+        border-radius: var(--border-radius);
     }
 
     & svg {

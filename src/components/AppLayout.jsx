@@ -3,13 +3,6 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
 
-// const StyledContainer = styled.div`
-//     background-color: var(--color-2);
-//     width: 70%;
-//     margin: auto;
-//     height: 100vh;
-// `;
-
 const StyledAppLayout = styled.div`
     display: grid;
     grid-template-columns: 26rem 1fr;

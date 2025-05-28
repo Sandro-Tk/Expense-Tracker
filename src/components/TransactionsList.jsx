@@ -8,18 +8,18 @@ const TransactionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: ${({ theme }) => theme.spacing.medium};
-    gap: ${({ theme }) => theme.spacing.small};
+    margin-top: var(--spacing-medium);
+    gap: var(--spacing-small);
     width: 100%;
     max-width: 600px;
 `;
 
 const StyledHeader = styled.h2`
     font-weight: 600;
-    font-size: ${({ theme }) => theme.fontSizes.large};
-    margin-bottom: ${({ theme }) => theme.spacing.small};
-    margin-top: ${({ theme }) => theme.spacing.small};
-    color: ${({ theme }) => theme.colors.color4};
+    font-size: var(--font-size-large);
+    margin-bottom: var(--spacing-small);
+    margin-top: var(--spacing-small);
+    color: var(--color-4);
     text-align: center;
 `;
 

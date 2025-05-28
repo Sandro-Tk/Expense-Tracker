@@ -4,18 +4,18 @@ import { TransactionContext } from "../context/TransactionContext";
 import { categories } from "../constants/categories";
 
 const StyledForm = styled.form`
-    padding-top: ${({ theme }) => theme.spacing.medium};
+    padding-top: var(--spacing-medium);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: ${({ theme }) => theme.spacing.medium};
+    gap: var(--spacing-medium);
 `;
 
 const FormItemContainer = styled.div`
     display: flex;
     flex-direction: row;
-    gap: ${({ theme }) => theme.spacing.small};
+    gap: var(--spacing-small);
     flex-wrap: wrap;
 
     @media (max-width: 600px) {
@@ -27,12 +27,12 @@ const FormItemContainer = styled.div`
 const StyledInput = styled.input`
     height: 40px;
     width: 250px;
-    padding-inline: ${({ theme }) => theme.spacing.small};
-    border: 1px solid ${({ theme }) => theme.colors.color3};
-    border-radius: ${({ theme }) => theme.borderRadius};
-    font-size: ${({ theme }) => theme.fontSizes.medium};
-    color: ${({ theme }) => theme.colors.color4};
-    background-color: ${({ theme }) => theme.colors.color2};
+    padding-inline: var(--spacing-small);
+    border: 1px solid var(--color-3);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-medium);
+    color: var(--color-4);
+    background-color: var(--color-2);
     transition: border-color 0.2s;
 
     &::-webkit-outer-spin-button,
@@ -42,46 +42,46 @@ const StyledInput = styled.input`
     }
 
     &:focus {
-        border-color: ${({ theme }) => theme.colors.color4};
+        border-color: var(--color-4);
         outline: none;
     }
 
     &::placeholder {
-        color: ${({ theme }) => theme.colors.color4};
+        color: var(--color-4);
     }
 `;
 
 const StyledSelect = styled.select`
     height: 40px;
     width: 250px;
-    padding-inline: ${({ theme }) => theme.spacing.small};
-    border: 1px solid ${({ theme }) => theme.colors.color3};
-    border-radius: ${({ theme }) => theme.borderRadius};
-    font-size: ${({ theme }) => theme.fontSizes.medium};
-    color: ${({ theme }) => theme.colors.color4};
-    background-color: ${({ theme }) => theme.colors.color2};
+    padding-inline: var(--spacing-small);
+    border: 1px solid var(--color-3);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-medium);
+    color: var(--color-4);
+    background-color: var(--color-2);
     transition: border-color 0.2s;
 
     &:focus {
-        border-color: ${({ theme }) => theme.colors.color4};
+        border-color: var(--color-4);
         outline: none;
     }
 `;
 
 const FormButton = styled.button`
     width: 300px;
-    padding: ${({ theme }) => theme.spacing.small};
+    padding: var(--spacing-small);
     border: none;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    background-color: ${({ theme }) => theme.colors.color3};
-    color: ${({ theme }) => theme.colors.color1};
-    font-size: ${({ theme }) => theme.fontSizes.medium};
+    border-radius: var(--border-radius);
+    background-color: var(--color-3);
+    color: var(--color-1);
+    font-size: var(--font-size-medium);
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.color4};
+        background-color: var(--color-4);
         transform: scale(1.02);
     }
 

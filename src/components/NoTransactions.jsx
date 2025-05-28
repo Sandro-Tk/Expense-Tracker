@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-    color: ${({ theme }) => theme.colors.color4};
-    font-size: ${({ theme }) => theme.fontSizes.medium};
+    color: var(--color-4);
+    font-size: var(--font-size-medium);
 `;
 
 function NoTransactions() {
