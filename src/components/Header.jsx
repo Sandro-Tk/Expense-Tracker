@@ -7,6 +7,10 @@ const StyledHeader = styled.header`
     gap: 2.4rem;
     padding: 1.2rem 4.8rem;
     border-bottom: 1px solid var(--color-2);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 `;
 
 function Header() {

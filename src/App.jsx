@@ -4,8 +4,9 @@ import AppLayout from "./components/AppLayout";
 import TransactionProvider from "./context/TransactionContext";
 import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
-import Dashboard from "./pages/Dashboard";
+import BudgetManagement from "./pages/BudgetManagement";
 import Profile from "./pages/Profile";
+import AllTransactions from "./pages/AllTransactions";
 
 function App() {
     return (
@@ -17,8 +18,15 @@ function App() {
                         <Route index element={<Navigate replace to="home" />} />
                         <Route path="home" element={<Home />} />
                         <Route path="analytics" element={<Analytics />} />
-                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route
+                            path="budget_management"
+                            element={<BudgetManagement />}
+                        />
                         <Route path="profile" element={<Profile />} />
+                        <Route
+                            path="all_transactions"
+                            element={<AllTransactions />}
+                        />
                     </Route>
                 </Routes>
             </BrowserRouter>

@@ -2,11 +2,10 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
     HiOutlineChartBar,
-    HiOutlineComputerDesktop,
     HiOutlineHome,
     HiOutlineUsers,
+    HiCurrencyDollar,
 } from "react-icons/hi2";
-
 const NavList = styled.ul`
     display: flex;
     flex-direction: column;
@@ -28,7 +27,6 @@ const StyledNavLink = styled(NavLink)`
         transition: all 0.3s;
     }
 
-    /* This works because react-router places the active class on the active NavLink */
     &:hover,
     &:active,
     &.active:link,
@@ -70,9 +68,9 @@ function MainNav() {
                     </StyledNavLink>
                 </li>
                 <li>
-                    <StyledNavLink to="/dashboard">
-                        <HiOutlineComputerDesktop />
-                        <span>Dashboard</span>
+                    <StyledNavLink to="/budget_management">
+                        <HiCurrencyDollar />
+                        <span>Budget Management</span>
                     </StyledNavLink>
                 </li>
                 <li>

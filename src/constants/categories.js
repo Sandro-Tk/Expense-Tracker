@@ -7,3 +7,5 @@ export const categories = [
     "Health",
     "Other",
 ];
+
+export const transactionViewLimit = 5

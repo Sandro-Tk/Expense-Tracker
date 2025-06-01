@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { TransactionContext } from "../../context/TransactionContext";
 import { formatCurrency } from "../../helpers";
 import styled from "styled-components";
+import { transactionViewLimit } from "../../constants/categories";
+import { useNavigate } from "react-router-dom";
 
 const StyledToday = styled.div`
     display: flex;
@@ -54,11 +56,21 @@ const StyledAmount = styled.span`
         props.$isPositive ? "var(--color-positive)" : "var(--color-negative)"};
 `;
 
+const StyledButton = styled.button`
+    margin-top: var(--spacing-small);
+    padding: var(--spacing-small);
+    background-color: var(--color-4);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+`;
+
 function TodayTransactions() {
     const { transactions } = useContext(TransactionContext);
+    const navigate = useNavigate();
 
     const currentDate = new Date().toLocaleDateString("en-CA");
-
     const todayTransactions = transactions.filter((transaction) => {
         const transactionDate = new Date(transaction.date).toLocaleDateString(
             "en-CA"
@@ -66,12 +78,15 @@ function TodayTransactions() {
         return transactionDate === currentDate;
     });
 
+    const limit = transactionViewLimit;
+    const displayedTransactions = todayTransactions.slice(0, limit);
+
     return (
         <StyledToday>
             <StyledHeader>Today's Transactions</StyledHeader>
             <StyledList>
                 {!todayTransactions && "No transactions for today"}
-                {todayTransactions &&
+                {displayedTransactions &&
                     todayTransactions.map((transaction) => (
                         <StyledListItem key={transaction.id}>
                             <span>{transaction.description}</span>
@@ -81,6 +96,11 @@ function TodayTransactions() {
                         </StyledListItem>
                     ))}
             </StyledList>
+            {todayTransactions.length > 5 && (
+                <StyledButton onClick={() => navigate("/all_transactions")}>
+                    See All Transactions
+                </StyledButton>
+            )}
         </StyledToday>
     );
 }

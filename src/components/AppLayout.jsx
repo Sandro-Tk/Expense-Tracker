@@ -6,12 +6,15 @@ import { Outlet } from "react-router-dom";
 const StyledAppLayout = styled.div`
     display: grid;
     grid-template-columns: 26rem 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 4rem 1fr;
     height: 100vh;
 `;
 
 const Main = styled.main`
     background-color: var(--color-1);
+    overflow-y: auto;
+    grid-column: 2;
+    grid-row: 2;
 `;
 
 const Container = styled.div`

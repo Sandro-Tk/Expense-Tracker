@@ -10,6 +10,10 @@ const StyledSidebar = styled.aside`
     display: flex;
     flex-direction: column;
     gap: var(--spacing-medium);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
 `;
 
 function Sidebar() {

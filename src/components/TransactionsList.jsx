@@ -3,12 +3,13 @@ import Transaction from "./Transaction";
 import NoTransactions from "./NoTransactions";
 import { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";
+import { useNavigate } from "react-router-dom";
+import { transactionViewLimit } from "../constants/categories";
 
 const TransactionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: var(--spacing-medium);
     gap: var(--spacing-small);
     width: 100%;
     max-width: 600px;
@@ -30,20 +31,40 @@ const CenterWrapper = styled.div`
     width: 100%;
 `;
 
-function TransactionsList() {
+const StyledButton = styled.button`
+    margin-top: var(--spacing-small);
+    padding: var(--spacing-small);
+    background-color: var(--color-4);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+`;
+
+function TransactionsList({ showAll = false }) {
     const { transactions } = useContext(TransactionContext);
+    const navigate = useNavigate();
+    const limit = transactionViewLimit;
+    const displayedTransactions = showAll
+        ? transactions
+        : transactions.slice(0, limit);
 
     return (
         <CenterWrapper>
             <TransactionContainer>
                 <StyledHeader>Transaction history</StyledHeader>
                 {!transactions.length && <NoTransactions />}
-                {transactions.map((transaction) => (
+                {displayedTransactions.map((transaction) => (
                     <Transaction
                         transaction={transaction}
                         key={transaction.id}
                     />
                 ))}
+                {!showAll && transactions.length > limit && (
+                    <StyledButton onClick={() => navigate("/all_transactions")}>
+                        See All Transactions
+                    </StyledButton>
+                )}
             </TransactionContainer>
         </CenterWrapper>
     );

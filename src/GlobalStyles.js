@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     --color-2: #dcd6f7;
     --color-3: #a6b1e1;
     --color-4: #424874;
-    --color-negative_hover: darkred;
+    --color-negative-hover: darkred;
 
     --font-size-small: 1rem;
     --font-size-medium: 1.3rem;

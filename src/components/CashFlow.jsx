@@ -46,7 +46,7 @@ function ValueBox({ label, amount, color }) {
     );
 }
 
-function IncomeExpenses() {
+function CashFlow() {
     const { transactions } = useContext(TransactionContext);
     const income = formatCurrency(
         transactions
@@ -78,4 +78,4 @@ function IncomeExpenses() {
     );
 }
 
-export default IncomeExpenses;
+export default CashFlow;
