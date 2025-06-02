@@ -1,5 +1,7 @@
+import BudgetManagementDashboard from "../features/BudgetManagement/BudgetManagementDashboard";
+
 function BudgetManagement() {
-    return <div>Budget Management</div>;
+    return <BudgetManagementDashboard />;
 }
 
 export default BudgetManagement;
