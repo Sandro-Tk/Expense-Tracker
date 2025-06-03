@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { TransactionContext } from "../context/TransactionContext";
-import { categories } from "../constants/categories";
+import { categories } from "../constants/constants";
+import toast from "react-hot-toast";
 
 const StyledForm = styled.form`
     padding-top: var(--spacing-medium);
@@ -111,7 +112,8 @@ function AddTransaction() {
 
         setDescription("");
         setAmount("");
-        setCategory("General");
+        setCategory(categories[0]);
+        toast.success("Transaction added successfully");
     }
 
     return (

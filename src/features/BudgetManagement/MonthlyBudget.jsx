@@ -2,12 +2,15 @@ import { useContext, useState } from "react";
 import { TransactionContext } from "../../context/TransactionContext";
 import styled from "styled-components";
 import { formatCurrency } from "../../helpers";
+import { BudgetContext } from "../../context/BudgetContext";
+import toast from "react-hot-toast";
 
 const StyledContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    grid-area: 1 / 1 / 2 / 2;
 `;
 
 const StyledHeader = styled.h2`
@@ -112,34 +115,52 @@ const StyledMessage = styled.p`
         props.$overBudget ? "var(--color-negative)" : "inherit"};
 `;
 
-function BudgetManagementDashboard() {
+function MonthlyBudget() {
+    const { monthlyBudget, updateMonthlyBudget } = useContext(BudgetContext);
     const { transactions } = useContext(TransactionContext);
-    const [budget, setBudget] = useState(0);
     const [inputBudget, setInputBudget] = useState("");
 
-    const totalSpent = transactions.reduce(
-        (sum, transaction) => sum + transaction.amount,
-        0
-    );
+    const curMonth = new Date().getMonth();
+    const curYear = new Date().getFullYear();
 
-    const budgetUsedPercentage = Math.min((totalSpent / budget) * 100, 100);
+    const monthlyExpenses = transactions
+        .filter((transaction) => {
+            const transactionDate = new Date(transaction.date);
+            return (
+                transaction.amount < 0 &&
+                transactionDate.getMonth() === curMonth &&
+                transactionDate.getFullYear() === curYear
+            );
+        })
+        .reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0);
+
+    const budgetUsedPercentage = Math.min(
+        (monthlyExpenses / monthlyBudget) * 100,
+        100
+    );
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setBudget(Number(inputBudget));
+        updateMonthlyBudget(Number(inputBudget));
         setInputBudget("");
+        toast.success("Monthly budget successfully added");
     };
 
     return (
         <StyledContainer>
-            {!budget && (
+            {!monthlyBudget && (
                 <StyledForm onSubmit={handleSubmit}>
                     <StyledHeader>Set Your Monthly Budget</StyledHeader>
                     <StyledInput
                         type="number"
                         id="budget"
                         value={inputBudget}
-                        onChange={(e) => setInputBudget(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value === "" || Number(value) > 0) {
+                                setInputBudget(value);
+                            }
+                        }}
                         placeholder="Enter your budget"
                     />
                     <StyledButton type="submit">Set Budget</StyledButton>
@@ -147,24 +168,34 @@ function BudgetManagementDashboard() {
             )}
             <StyledHeader>
                 Monthly Budget:{" "}
-                {budget > 0 ? formatCurrency(budget) : "Not Set"}
+                {monthlyBudget > 0 ? formatCurrency(monthlyBudget) : "Not Set"}
             </StyledHeader>
             <StyledProgress
                 value={budgetUsedPercentage}
                 max={100}
-                $noBudget={budget === 0}
+                $noBudget={monthlyBudget === 0}
             ></StyledProgress>
             <StyledMessage $overBudget={budgetUsedPercentage >= 100}>
-                {budget > 0
+                {monthlyBudget > 0
                     ? budgetUsedPercentage >= 100
                         ? "You are over your budget"
                         : `Remaining budget: ${formatCurrency(
-                              budget - totalSpent
+                              monthlyBudget - monthlyExpenses
                           )}`
                     : "Please set a budget to track your expenses."}
             </StyledMessage>
+            {monthlyBudget > 0 && (
+                <StyledButton
+                    onClick={() => {
+                        updateMonthlyBudget(0);
+                        toast.success("Monthly budget successfully reset");
+                    }}
+                >
+                    Reset Monthly Budget
+                </StyledButton>
+            )}
         </StyledContainer>
     );
 }
 
-export default BudgetManagementDashboard;
+export default MonthlyBudget;

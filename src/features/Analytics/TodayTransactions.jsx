@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { TransactionContext } from "../../context/TransactionContext";
 import { formatCurrency } from "../../helpers";
 import styled from "styled-components";
-import { transactionViewLimit } from "../../constants/categories";
+import { transactionViewLimit } from "../../constants/constants";
 import { useNavigate } from "react-router-dom";
 
 const StyledToday = styled.div`

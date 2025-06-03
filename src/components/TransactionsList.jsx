@@ -4,7 +4,7 @@ import NoTransactions from "./NoTransactions";
 import { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";
 import { useNavigate } from "react-router-dom";
-import { transactionViewLimit } from "../constants/categories";
+import { transactionViewLimit } from "../constants/constants";
 
 const TransactionContainer = styled.div`
     display: flex;

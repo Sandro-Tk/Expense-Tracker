@@ -3,6 +3,7 @@ import { formatCurrency } from "../helpers";
 import styled from "styled-components";
 import { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";
+import toast from "react-hot-toast";
 
 const StyledTransaction = styled.div`
     display: flex;
@@ -84,7 +85,12 @@ function Transaction({ transaction }) {
                 {isPositive ? "+" : ""}
                 {formatCurrency(transaction.amount)}
             </Amount>
-            <Button onClick={() => deleteTransaction(transaction.id)}>
+            <Button
+                onClick={() => {
+                    deleteTransaction(transaction.id);
+                    toast.success("Transaction deleted successfully");
+                }}
+            >
                 <HiXMark />
             </Button>
         </StyledTransaction>
