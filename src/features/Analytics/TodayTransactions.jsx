@@ -66,6 +66,11 @@ const StyledButton = styled.button`
     cursor: pointer;
 `;
 
+const StyledMessage = styled.p`
+    font-size: var(--font-size-large);
+    color: var(--color-4)
+`;
+
 function TodayTransactions() {
     const { transactions } = useContext(TransactionContext);
     const navigate = useNavigate();
@@ -84,8 +89,10 @@ function TodayTransactions() {
     return (
         <StyledToday>
             <StyledHeader>Today's Transactions</StyledHeader>
+            {todayTransactions.length === 0 && (
+                <StyledMessage>No transactions for today</StyledMessage>
+            )}
             <StyledList>
-                {!todayTransactions && "No transactions for today"}
                 {displayedTransactions &&
                     todayTransactions.map((transaction) => (
                         <StyledListItem key={transaction.id}>

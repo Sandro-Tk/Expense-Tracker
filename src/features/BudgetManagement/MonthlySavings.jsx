@@ -1,16 +1,16 @@
 import { useContext, useState } from "react";
-import { TransactionContext } from "../../context/TransactionContext";
-import styled from "styled-components";
 import { formatCurrency } from "../../helpers";
+import { TransactionContext } from "../../context/TransactionContext";
 import { BudgetContext } from "../../context/BudgetContext";
+import styled from "styled-components";
 import toast from "react-hot-toast";
 
 const StyledContainer = styled.div`
+    grid-area: 1 / 2 / 2 / 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    grid-area: 1 / 1 / 2 / 2;
 `;
 
 const StyledHeader = styled.h2`
@@ -91,7 +91,7 @@ const StyledProgress = styled.progress`
 
     &::-webkit-progress-value {
         background-color: ${(props) =>
-            props.$noBudget
+            props.$noSavings
                 ? "var(--color-1)"
                 : props.value >= 100
                 ? "var(--color-negative)"
@@ -101,7 +101,7 @@ const StyledProgress = styled.progress`
 
     &::-moz-progress-bar {
         background-color: ${(props) =>
-            props.$noBudget
+            props.$noSavings
                 ? "var(--color-1)"
                 : props.value >= 100
                 ? "var(--color-negative)"
@@ -113,97 +113,95 @@ const StyledProgress = styled.progress`
 const StyledMessage = styled.p`
     font-size: var(--font-size-small);
     color: ${(props) =>
-        props.$overBudget ? "var(--color-negative)" : "inherit"};
+        props.$overSavings ? "var(--color-negative)" : "inherit"};
 `;
 
-function MonthlyBudget() {
-    const { monthlyBudget, updateMonthlyBudget } = useContext(BudgetContext);
+function MonthlySavings() {
+    const { monthlySavings, updateMonthlySavings } = useContext(BudgetContext);
     const { transactions } = useContext(TransactionContext);
-    const [inputBudget, setInputBudget] = useState("");
+    const [inputSavings, setInputSavings] = useState("");
 
     const curMonth = new Date().getMonth();
     const curYear = new Date().getFullYear();
 
-    const monthlyExpenses = transactions
+    const monthlyIncome = transactions
         .filter((transaction) => {
             const transactionDate = new Date(transaction.date);
             return (
-                transaction.amount < 0 &&
+                transaction.amount > 0 &&
                 transactionDate.getMonth() === curMonth &&
                 transactionDate.getFullYear() === curYear
             );
         })
         .reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0);
 
-    const budgetUsedPercentage = Math.min(
-        (monthlyExpenses / monthlyBudget) * 100,
+    const savingsUsedPercentage = Math.min(
+        (monthlyIncome / monthlySavings) * 100,
         100
     );
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!inputBudget || Number(inputBudget) <= 0) {
+        if (!inputSavings || Number(inputSavings) <= 0) {
             toast.error("Please enter a valid amount");
             return;
         }
 
-        updateMonthlyBudget(Number(inputBudget));
-        setInputBudget("");
-        toast.success("Monthly budget successfully added");
+        updateMonthlySavings(Number(inputSavings));
+        setInputSavings("");
+        toast.success("Monthly savings successfully added");
     };
 
     return (
         <StyledContainer>
-            {!monthlyBudget && (
+            {!monthlySavings && (
                 <StyledForm onSubmit={handleSubmit}>
-                    <StyledHeader>Set Your Monthly Budget</StyledHeader>
+                    <StyledHeader>Set Your Monthly Savings Goal</StyledHeader>
                     <StyledInput
                         type="number"
-                        id="budget"
-                        value={inputBudget}
+                        id="savings"
+                        value={inputSavings}
                         onChange={(e) => {
                             const value = e.target.value;
                             if (value === "" || Number(value) > 0) {
-                                setInputBudget(value);
+                                setInputSavings(value);
                             }
                         }}
-                        placeholder="Enter your budget"
+                        placeholder="Enter your savings goal"
                     />
-                    <StyledButton type="submit">Set Budget</StyledButton>
+                    <StyledButton type="submit">Set Savings</StyledButton>
                 </StyledForm>
             )}
-            {monthlyBudget > 0 && (
-                <StyledHeader>Your monthly budget</StyledHeader>
+            {monthlySavings > 0 && (
+                <StyledHeader>Your monthly savings</StyledHeader>
             )}
             <StyledProgress
-                value={budgetUsedPercentage}
+                value={savingsUsedPercentage}
                 max={100}
-                $noBudget={monthlyBudget === 0}
+                $noSavings={monthlySavings === 0}
             ></StyledProgress>
-            <StyledMessage
-                $overBudget={budgetUsedPercentage >= 100 || monthlyBudget === 0}
-            >
-                {monthlyBudget > 0
-                    ? budgetUsedPercentage >= 100
-                        ? "You are over your budget"
-                        : `Remaining budget: ${formatCurrency(
-                              monthlyBudget - monthlyExpenses
+            <StyledMessage $overSavings={savingsUsedPercentage >= 100}>
+                {monthlySavings > 0
+                    ? savingsUsedPercentage >= 100
+                        ? "You have reached your savings goal"
+                        : `Remaining savings goal: ${formatCurrency(
+                              monthlySavings - monthlyIncome
                           )}`
-                    : "Please set a budget to track your expenses"}
+                    : "Please set a savings goal to track your income"}
             </StyledMessage>
-            {monthlyBudget > 0 && (
+            {monthlySavings > 0 && (
                 <StyledButton
                     onClick={() => {
-                        updateMonthlyBudget(0);
-                        toast.success("Monthly budget successfully reset");
+                        updateMonthlySavings(0);
+                        toast.success("Monthly savings successfully reset");
                     }}
                 >
-                    Reset Monthly Budget
+                    Reset Monthly Savings
                 </StyledButton>
             )}
         </StyledContainer>
     );
 }
 
-export default MonthlyBudget;
+export default MonthlySavings;

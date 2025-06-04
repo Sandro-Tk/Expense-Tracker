@@ -12,6 +12,11 @@ function BudgetProvider({ children }) {
         return savedBudget ? Number(savedBudget) : 0;
     });
 
+    const [monthlySavings, setMonthlySavings] = useState(() => {
+        const savedSavings = localStorage.getItem("monthlySavings");
+        return savedSavings ? Number(savedSavings) : 0;
+    });
+
     const [categories, setCategories] = useState(() => {
         const savedCategories = localStorage.getItem("categories");
         if (savedCategories) return JSON.parse(savedCategories);
@@ -57,6 +62,10 @@ function BudgetProvider({ children }) {
     }, [monthlyBudget]);
 
     useEffect(() => {
+        localStorage.setItem("monthlySavings", monthlySavings);
+    }, [monthlySavings]);
+
+    useEffect(() => {
         localStorage.setItem("categories", JSON.stringify(categories));
     }, [categories]);
 
@@ -74,13 +83,19 @@ function BudgetProvider({ children }) {
         setMonthlyBudget(Number(budget));
     };
 
+    const updateMonthlySavings = (savings) => {
+        setMonthlySavings(Number(savings));
+    };
+
     return (
         <BudgetContext.Provider
             value={{
                 monthlyBudget,
+                monthlySavings,
                 categories,
                 updateCategoryBudget,
                 updateMonthlyBudget,
+                updateMonthlySavings,
                 setCategories,
             }}
         >
