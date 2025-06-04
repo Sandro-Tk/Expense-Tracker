@@ -113,7 +113,7 @@ const StyledProgress = styled.progress`
 const StyledMessage = styled.p`
     font-size: var(--font-size-small);
     color: ${(props) =>
-        props.$overSavings ? "var(--color-negative)" : "inherit"};
+        props.$underSavings ? "var(--color-negative)" : "inherit"};
 `;
 
 function MonthlySavings() {
@@ -176,12 +176,14 @@ function MonthlySavings() {
             {monthlySavings > 0 && (
                 <StyledHeader>Your monthly savings</StyledHeader>
             )}
-            <StyledProgress
-                value={savingsUsedPercentage}
-                max={100}
-                $noSavings={monthlySavings === 0}
-            ></StyledProgress>
-            <StyledMessage $overSavings={savingsUsedPercentage >= 100}>
+            {monthlySavings > 0 && (
+                <StyledProgress
+                    value={savingsUsedPercentage}
+                    max={100}
+                    $underSavings={monthlySavings <= 0}
+                ></StyledProgress>
+            )}
+            <StyledMessage $underSavings={savingsUsedPercentage >= 100}>
                 {monthlySavings > 0
                     ? savingsUsedPercentage >= 100
                         ? "You have reached your savings goal"

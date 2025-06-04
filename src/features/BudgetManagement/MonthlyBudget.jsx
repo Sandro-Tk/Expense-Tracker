@@ -176,11 +176,13 @@ function MonthlyBudget() {
             {monthlyBudget > 0 && (
                 <StyledHeader>Your monthly budget</StyledHeader>
             )}
-            <StyledProgress
-                value={budgetUsedPercentage}
-                max={100}
-                $noBudget={monthlyBudget === 0}
-            ></StyledProgress>
+            {monthlyBudget > 0 && (
+                <StyledProgress
+                    value={budgetUsedPercentage}
+                    max={100}
+                    $noBudget={monthlyBudget === 0}
+                ></StyledProgress>
+            )}
             <StyledMessage
                 $overBudget={budgetUsedPercentage >= 100 || monthlyBudget === 0}
             >

@@ -80,7 +80,7 @@ const StyledProgress = styled.progress`
 
     &::-webkit-progress-value {
         background-color: ${(props) =>
-            props.value > 75
+            props.value >= 100
                 ? "var(--color-negative)"
                 : "var(--color-positive)"};
         border-radius: var(--border-radius);
@@ -88,7 +88,7 @@ const StyledProgress = styled.progress`
 
     &::-moz-progress-bar {
         background-color: ${(props) =>
-            props.value > 75
+            props.value >= 100
                 ? "var(--color-negative)"
                 : "var(--color-positive)"};
         border-radius: var(--border-radius);
