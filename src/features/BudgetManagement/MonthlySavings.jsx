@@ -11,6 +11,8 @@ const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: solid 1px var(--color-4);
+    border-radius: var(--border-radius);
 `;
 
 const StyledHeader = styled.h2`
@@ -90,22 +92,12 @@ const StyledProgress = styled.progress`
     }
 
     &::-webkit-progress-value {
-        background-color: ${(props) =>
-            props.$noSavings
-                ? "var(--color-1)"
-                : props.value >= 100
-                ? "var(--color-negative)"
-                : "var(--color-positive)"};
+        background-color: var(--color-positive);
         border-radius: var(--border-radius);
     }
 
     &::-moz-progress-bar {
-        background-color: ${(props) =>
-            props.$noSavings
-                ? "var(--color-1)"
-                : props.value >= 100
-                ? "var(--color-negative)"
-                : "var(--color-positive)"};
+        background-color: var(--color-positive);
         border-radius: var(--border-radius);
     }
 `;
@@ -113,7 +105,11 @@ const StyledProgress = styled.progress`
 const StyledMessage = styled.p`
     font-size: var(--font-size-small);
     color: ${(props) =>
-        props.$underSavings ? "var(--color-negative)" : "inherit"};
+        props.$hasSavings
+            ? props.$overSavings
+                ? "var(--color-positive)"
+                : "var(--color-4)"
+            : "var(--color-negative)"};
 `;
 
 function MonthlySavings() {
@@ -180,10 +176,12 @@ function MonthlySavings() {
                 <StyledProgress
                     value={savingsUsedPercentage}
                     max={100}
-                    $underSavings={monthlySavings <= 0}
                 ></StyledProgress>
             )}
-            <StyledMessage $underSavings={savingsUsedPercentage >= 100}>
+            <StyledMessage
+                $hasSavings={monthlySavings > 0}
+                $overSavings={savingsUsedPercentage >= 100}
+            >
                 {monthlySavings > 0
                     ? savingsUsedPercentage >= 100
                         ? "You have reached your savings goal"

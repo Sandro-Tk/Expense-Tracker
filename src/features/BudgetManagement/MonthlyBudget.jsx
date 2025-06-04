@@ -11,6 +11,8 @@ const StyledContainer = styled.div`
     justify-content: center;
     align-items: center;
     grid-area: 1 / 1 / 2 / 2;
+    border: solid 1px var(--color-4);
+    border-radius: var(--border-radius);
 `;
 
 const StyledHeader = styled.h2`
@@ -113,7 +115,7 @@ const StyledProgress = styled.progress`
 const StyledMessage = styled.p`
     font-size: var(--font-size-small);
     color: ${(props) =>
-        props.$overBudget ? "var(--color-negative)" : "inherit"};
+        props.$overBudget ? "var(--color-negative)" : "var(--color-4)"};
 `;
 
 function MonthlyBudget() {

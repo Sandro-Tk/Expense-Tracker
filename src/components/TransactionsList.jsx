@@ -34,8 +34,8 @@ const CenterWrapper = styled.div`
 const StyledButton = styled.button`
     margin-top: var(--spacing-small);
     padding: var(--spacing-small);
-    background-color: var(--color-4);
-    color: white;
+    background-color: var(--color-3);
+    color: var(--color-1);
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;

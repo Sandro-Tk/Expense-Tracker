@@ -81,6 +81,15 @@ function BudgetProvider({ children }) {
 
     const updateMonthlyBudget = (budget) => {
         setMonthlyBudget(Number(budget));
+
+        if (Number(budget) === 0) {
+            setCategories((prevCategories) =>
+                prevCategories.map((category) => ({
+                    ...category,
+                    budget: 0,
+                }))
+            );
+        }
     };
 
     const updateMonthlySavings = (savings) => {

@@ -10,6 +10,9 @@ const StyledContainer = styled.div`
     align-items: center;
     gap: var(--spacing-medium);
     grid-area: 2 / 1 / 3 / 3;
+    border: solid 1px var(--color-4);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-medium);
 `;
 
 const StyledHeader = styled.h2`
@@ -20,14 +23,15 @@ const StyledHeader = styled.h2`
     text-align: center;
 `;
 
-const StyledGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+const StyledFlex = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: var(--spacing-medium);
-    width: 100%;
 `;
 
-const StyledGridItem = styled.div`
+const StyledFlexItem = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,6 +99,11 @@ const StyledProgress = styled.progress`
     }
 `;
 
+const Spent = styled.span`
+    color: ${(props) =>
+        props.$isOver ? "var(--color-negative)" : "var(--color-4)"};
+`;
+
 function BudgetByCategories() {
     const { categories, updateCategoryBudget, monthlyBudget, setCategories } =
         useContext(BudgetContext);
@@ -114,7 +123,7 @@ function BudgetByCategories() {
         }, 0);
 
         if (totalBudget > monthlyBudget) {
-            inputElement.value = category.budget;
+            inputElement.value = "";
             toast.error(
                 "Total category budgets cannot exceed the monthly budget."
             );
@@ -129,29 +138,31 @@ function BudgetByCategories() {
 
         setCategories(updatedCategories);
         updateCategoryBudget(categoryName, value);
+
+        inputElement.value = "";
         toast.success("Category budget updated successfully");
     };
 
     return (
         <StyledContainer>
             <StyledHeader>Set Monthly Budgets by Category</StyledHeader>
-            <StyledGrid>
+            <StyledFlex>
                 {categories.map((category) => (
-                    <StyledGridItem key={category.name}>
+                    <StyledFlexItem key={category.name}>
                         <span>{category.name}</span>
                         <StyledInput
                             type="number"
                             min="0"
-                            defaultValue={category.budget || ""}
+                            defaultValue={""}
                             id={category.name}
                             disabled={!monthlyBudget}
-                            onBlur={(e) =>
+                            onBlur={(e) => {
                                 handleBudgetChange(
                                     category.name,
                                     e.target.value,
                                     e.target
-                                )
-                            }
+                                );
+                            }}
                             placeholder="Enter budget"
                         />
                         <StyledProgress
@@ -166,15 +177,15 @@ function BudgetByCategories() {
                             }
                             max={100}
                         />
-                        <span>
+                        <Spent $isOver={category.spent > category.budget}>
                             {`Spent: ${formatCurrency(category.spent)}`}
-                        </span>
+                        </Spent>
                         <span>
                             {`Budget: ${formatCurrency(category.budget)}`}
                         </span>
-                    </StyledGridItem>
+                    </StyledFlexItem>
                 ))}
-            </StyledGrid>
+            </StyledFlex>
         </StyledContainer>
     );
 }

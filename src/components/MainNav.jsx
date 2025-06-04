@@ -73,12 +73,6 @@ function MainNav() {
                         <span>Budget Management</span>
                     </StyledNavLink>
                 </li>
-                <li>
-                    <StyledNavLink to="/profile">
-                        <HiOutlineUsers />
-                        <span>Profile</span>
-                    </StyledNavLink>
-                </li>
             </NavList>
         </nav>
     );
