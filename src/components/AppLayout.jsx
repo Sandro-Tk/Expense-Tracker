@@ -15,6 +15,10 @@ const Main = styled.main`
     overflow-y: auto;
     grid-column: 2;
     grid-row: 2;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 const Container = styled.div`

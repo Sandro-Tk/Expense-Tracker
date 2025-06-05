@@ -6,6 +6,7 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    align-items: center;
     background-color: var(--color-1);
     gap: 2.4rem;
     padding: 1.2rem 4.8rem;
@@ -21,9 +22,10 @@ const StyledButton = styled.button`
     padding: 0.6rem;
     border-radius: var(--border-radius);
     transition: all 0.2s;
+    background-color: var(--color-2);
 
     &:hover {
-        background-color: var(--color-1);
+        background-color: var(--color-3);
     }
 
     & svg {

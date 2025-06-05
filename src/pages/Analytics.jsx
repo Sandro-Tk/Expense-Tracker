@@ -16,22 +16,17 @@ const StyledContainer = styled.div`
 
 const StyledHeader = styled.h1`
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
     font-size: var(--font-size-medium);
     margin-bottom: var(--spacing-medium);
     color: var(--color-4);
-    
 `;
 
 function Analytics() {
     return (
         <StyledAnalytics>
-            <StyledHeader>
-                <span>Analytics</span>
-                <div>FILTERS</div>
-            </StyledHeader>
+            <StyledHeader>Analytics</StyledHeader>
             <StyledContainer>
                 <TodayTransactions />
                 <ExpensesChart />
