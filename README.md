@@ -2,6 +2,8 @@
 
 Expenza is a web application designed to help users track their expenses, income, manage budgets and analyze their financial data.
 
+https://expenza-sandro.vercel.app
+
 ## Features
 
 -   **Expense Tracking**: Add, view, and delete transactions with categories and amounts.
